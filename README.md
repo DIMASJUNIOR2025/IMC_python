@@ -38,5 +38,5 @@ O código Python define as funções para processar os dados inseridos, calcular
 ```python
 # O código para os widgets e a lógica de cálculo está presente no notebook.
 ```
-
----
+Resumo
+Esse código transforma um cálculo simples de IMC em uma interface interativa e amigável, permitindo que o usuário insira dados, clique em um botão e veja as classificações automaticamente.
