@@ -35,8 +35,4 @@ Um bloco de estilo CSS personalizado é injetado no notebook para aplicar um tem
 
 O código Python define as funções para processar os dados inseridos, calcular o IMC e classificar a altura e a idade. Ele também configura os widgets e gerencia a interação com o usuário.
 
-```python
-# O código para os widgets e a lógica de cálculo está presente no notebook.
-```
 
----
