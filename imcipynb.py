@@ -1,3 +1,4 @@
+from enum import nonmember
 # -*- coding: utf-8 -*-
 """IMCipynb
 
@@ -13,27 +14,48 @@ from IPython.display import display, HTML
 # Estilização CSS Dark
 style = """
 <style>
+
     .main-container {
-        background-color: #1e1e1e;
-        padding: 20px;
-        border-radius: 15px;
-        border: 1px solid #333;
-        color: #ffffff;
-        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background-color: #2c3e50;
+        color:#000080;
+        background-image: url("https://lucianaspina.com.br/wp-content/uploads/2018/05/IMC.jpg");
+        background-size: cover;
+        background-position: center;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        font-family: Arial, sans-serif;
+        font-size: 16px;
+        font-weight: bold;
+        padding: 300px;
+
     }
-    .widget-label { color: #ffffff !important; font-weight: bold; }
-    .custom-button {
-        background-color: #007bff !important;
-        color: white !important;
+    /* Borda preta nos labels e nos números (readout) */
+    .widget-label, .widget-readout {
+        color: #ffffff !important;
         font-weight: bold !important;
-        border-radius: 8px !important;
+        text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000, 1px 1px 1px #000 !important;
     }
+
+    .custom-button {
+        background-color: #007bff;
+        color:#F5F5F5;
+        font-weight: bold;
+        border-radius: 8px;
+        text-shadow: 1px 1px 2px #000;
+    }
+
     .output-area {
         margin-top: 15px;
         padding: 10px;
-        background-color: #2d2d2d;
+        background-color: #ffffff;
+        border: 1px solid #ffffff;
         border-left: 5px solid #007bff;
         border-radius: 4px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        color: black;
+        font-weight: bold
     }
 </style>
 """
@@ -42,11 +64,14 @@ display(HTML(style))
 # Widgets de Entrada
 nome_w = widgets.Text(description='Nome:', placeholder='Digite seu nome')
 idade_w = widgets.IntSlider(description='Idade:', min=0, max=120, value=25)
-peso_w = widgets.FloatText(description='Peso (kg):', value=70.0)
-altura_w = widgets.FloatText(description='Altura (m):', value=1.75)
+peso_w = widgets.FloatText(description='Peso (kg):', value=0.0)
+altura_w = widgets.FloatText(description='Altura (m):', value=0.0)
 
 btn_calcular = widgets.Button(description='Calcular Resultados', button_style='primary')
 btn_calcular.add_class("custom-button")
+
+btn_limpar = widgets.Button(description='Limpar Campos', button_style='info')
+btn_limpar.add_class("custom-button")
 
 out = widgets.Output()
 
@@ -83,9 +108,18 @@ def processar_dados(b):
         else:
             print("Erro: Altura inválida.")
 
+def limpar_campos(b):
+    with out:
+        out.clear_output()
+        nome_w.value = ''
+        idade_w.value = 25
+        peso_w.value = 0.0
+        altura_w.value = 0.0
+
 btn_calcular.on_click(processar_dados)
+btn_limpar.on_click(limpar_campos)
 
 # Layout
-form = widgets.VBox([nome_w, idade_w, peso_w, altura_w, btn_calcular, out])
+form = widgets.VBox([nome_w, idade_w, peso_w, altura_w, widgets.HBox([btn_calcular, btn_limpar]), out])
 form.add_class("main-container")
 display(form)
