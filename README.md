@@ -26,7 +26,3 @@ Este projeto contém um sistema interativo em Python para coletar informações 
 5. Use o botão **Limpar Campos** para resetar o formulário.
 """
 
-with open('README.md', 'w', encoding='utf-8') as f:
-    f.write(readme_content)
-
-print("Arquivo README.md criado/atualizado com sucesso!")
